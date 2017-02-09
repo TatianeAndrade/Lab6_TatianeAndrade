@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
 
-public class Usuario {
+public abstract class Usuario {
 	
-	private String nome;
-	private ArrayList<Jogo> jogos;
-	private double quantia;
+	protected String nome;
+	protected ArrayList<Jogo> jogos;
+	protected double quantia;
+	protected int x2p;
 
 	public Usuario(String nome) {
 		this.nome = nome;
@@ -13,15 +14,10 @@ public class Usuario {
 		this.quantia = 0;
 	}
 	
-	public void comprarJogo(Jogo jogo){
-		if (jogo.getPreco() >= this.quantia){
-			jogos.add(jogo);
-			quantia -= jogo.getPreco();
-		}
+	public abstract void comprarJogo(Jogo jogo);
 		
-	}
 
-	public void adicionarQuantia(){
-		
+	public void adicionarQuantia(double quantia){
+		this.quantia += quantia;
 	}
 }

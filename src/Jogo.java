@@ -7,7 +7,10 @@ public class Jogo {
 	private int quantidadeDeJogadas;
 	private int jogadasZeradas;
 
-	public Jogo(String nome, double preco) {
+	public Jogo(String nome, double preco) throws Exception{
+		if (nome.equals("") || nome.equals(null)){
+			
+		}
 		this.nome = nome;
 		this.preco = preco;
 		this.score = 0;
