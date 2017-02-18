@@ -6,8 +6,8 @@ import Jogo.Jogo;
 
 public class Veterano extends Usuario{
 	
-	public Veterano(String nome) throws NomeInvalido {
-		super (nome);
+	public Veterano(String nome, String login) throws NomeInvalido {
+		super (nome, login);
 		x2p = 1000;
 	}
 

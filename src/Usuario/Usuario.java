@@ -3,9 +3,8 @@ import java.util.ArrayList;
 
 import Exceptions.JogoInvalido;
 import Exceptions.NomeInvalido;
+import Exceptions.ValorInvalido;
 import Jogo.Jogo;
-
-
 
 public abstract class Usuario {
 	
@@ -13,10 +12,11 @@ public abstract class Usuario {
 	protected ArrayList<Jogo> jogos;
 	protected double quantia;
 	protected int x2p;
+	protected String login;
 
-	public Usuario(String nome) throws NomeInvalido{
+	public Usuario(String nome, String login) throws NomeInvalido{
 		if (nome.trim().equals("") || nome == null){
-			throw new NomeInvalido("Nome vazio ou null!");
+			throw new NomeInvalido("Nome ou Login inválido!");
 		}
 		this.nome = nome;
 		this.jogos = new ArrayList<>();
@@ -25,7 +25,12 @@ public abstract class Usuario {
 	
 	public abstract void comprarJogo(Jogo jogo) throws JogoInvalido;
 	
-	public void registraJogada(String nomeDoJogo, int score, boolean zerou){
+	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws NomeInvalido, ValorInvalido{
+		if (nomeDoJogo.trim().equals("") || nomeDoJogo == null){
+			throw new NomeInvalido("Nome do jogo inválido!");
+		}else if (score <= 0){
+			throw new ValorInvalido("Score menor ou igual a zero!");
+		}
 		for (Jogo jogo : jogos) {
 			if (jogo.equals(nomeDoJogo))
 				x2p += jogo.registraJogada(score, zerou);
@@ -40,8 +45,7 @@ public abstract class Usuario {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((jogos == null) ? 0 : jogos.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		return result;
 	}
 
@@ -54,15 +58,10 @@ public abstract class Usuario {
 		if (!(obj instanceof Usuario))
 			return false;
 		Usuario other = (Usuario) obj;
-		if (jogos == null) {
-			if (other.jogos != null)
+		if (login == null) {
+			if (other.login != null)
 				return false;
-		} else if (!jogos.equals(other.jogos))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!login.equals(other.login))
 			return false;
 		return true;
 	}

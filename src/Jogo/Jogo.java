@@ -1,9 +1,9 @@
 package Jogo;
 
 import Exceptions.NomeInvalido;
-import Exceptions.PrecoInvalido;
+import Exceptions.ValorInvalido;
 
-public class Jogo {
+public abstract class Jogo {
 	
 	private String nome;
 	private double preco;
@@ -11,11 +11,11 @@ public class Jogo {
 	private int quantidadeDeJogadas;
 	private int jogadasZeradas;
 
-	public Jogo(String nome, double preco) throws NomeInvalido, PrecoInvalido{
+	public Jogo(String nome, double preco) throws NomeInvalido, ValorInvalido{
 		if (nome.trim().equals("") || nome == null){
 			throw new NomeInvalido("Nome vazio ou null!");
 		} else if (preco <= 0){
-			throw new PrecoInvalido("Preço menor ou igual a zero!");
+			throw new ValorInvalido("Preço menor ou igual a zero!");
 		}
 		this.nome = nome;
 		this.preco = preco;
@@ -24,10 +24,7 @@ public class Jogo {
 		this.jogadasZeradas = 0;		
 	}
 	
-	public int registraJogada (int score, boolean concluiu){
-		int xp = 0;
-		return xp;
-	}
+	public abstract int registraJogada (int score, boolean concluiu);
 
 	public String getNome() {
 		return nome;
@@ -87,8 +84,4 @@ public class Jogo {
 		return true;
 	}
 	
-	
-	
-	
-
 }
