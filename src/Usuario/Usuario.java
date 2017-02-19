@@ -40,6 +40,10 @@ public abstract class Usuario {
 	public void adicionarQuantia(double quantia){
 		this.quantia += quantia;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
 
 	@Override
 	public int hashCode() {

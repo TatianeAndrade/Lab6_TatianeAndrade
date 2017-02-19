@@ -7,9 +7,9 @@ public abstract class Jogo {
 	
 	private String nome;
 	private double preco;
-	private int score;
-	private int quantidadeDeJogadas;
-	private int jogadasZeradas;
+	protected int scoreMaximo;
+	protected int quantidadeDeJogadas;
+	protected int jogadasZeradas;
 
 	public Jogo(String nome, double preco) throws NomeInvalido, ValorInvalido{
 		if (nome.trim().equals("") || nome == null){
@@ -19,12 +19,12 @@ public abstract class Jogo {
 		}
 		this.nome = nome;
 		this.preco = preco;
-		this.score = 0;
+		this.scoreMaximo = 0;
 		this.quantidadeDeJogadas = 0;
 		this.jogadasZeradas = 0;		
 	}
 	
-	public abstract int registraJogada (int score, boolean concluiu);
+	public abstract int registraJogada (int score, boolean concluiu) throws ValorInvalido;
 
 	public String getNome() {
 		return nome;
@@ -40,18 +40,6 @@ public abstract class Jogo {
 
 	public void setPreco(double preco) {
 		this.preco = preco;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public int getQuantidadeDeJogadas() {
-		return quantidadeDeJogadas;
-	}
-
-	public int getJogadasZeradas() {
-		return jogadasZeradas;
 	}
 
 	@Override
