@@ -15,17 +15,18 @@ public abstract class Usuario {
 	protected String login;
 
 	public Usuario(String nome, String login) throws NomeInvalido{
-		if (nome.trim().equals("") || nome == null){
+		if (nome.trim().equals("") || nome == null || login.trim().equals("") || login == null){
 			throw new NomeInvalido("Nome ou Login inválido!");
 		}
 		this.nome = nome;
+		this.login = login;
 		this.jogos = new ArrayList<>();
 		this.quantia = 0;
 	}
 	
 	public abstract void comprarJogo(Jogo jogo) throws JogoInvalido;
 	
-	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws NomeInvalido, ValorInvalido{
+	public void registrarJogada(String nomeDoJogo, int score, boolean zerou) throws NomeInvalido, ValorInvalido{
 		if (nomeDoJogo.trim().equals("") || nomeDoJogo == null){
 			throw new NomeInvalido("Nome do jogo inválido!");
 		}else if (score <= 0){
@@ -37,13 +38,43 @@ public abstract class Usuario {
 		}
 	}
 
-	public void adicionarQuantia(double quantia){
+	public void adicionarQuantia(double quantia) throws ValorInvalido{
+		if (quantia <= 0){
+			throw new ValorInvalido("Valor menor ou igual a zero não permitidio!");
+		}
 		this.quantia += quantia;
 	}
 	
 	public String getNome() {
 		return nome;
 	}
+	
+	public String getLogin() {
+		return login;
+	}
+	
+	public int getX2p(){
+		return x2p;
+	}
+	
+	public ArrayList<Jogo> getJogos() {
+		return jogos;
+	}
+
+	public double getQuantia() {
+		return quantia;
+	}
+
+	public double totalDeJogos(){
+		double total = 0;
+		for (Jogo jogo : jogos) {
+			total += jogo.getPreco();
+		} 
+		return total;
+	}
+
+	@Override
+	public abstract String toString();
 
 	@Override
 	public int hashCode() {
@@ -55,19 +86,10 @@ public abstract class Usuario {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Usuario))
-			return false;
-		Usuario other = (Usuario) obj;
-		if (login == null) {
-			if (other.login != null)
+			if(!(obj instanceof Usuario))
 				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		return true;
+			Usuario novo = (Usuario) obj;
+			return novo.getLogin().equals(getLogin());
 	}
 	
 }
